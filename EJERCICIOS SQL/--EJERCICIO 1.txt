@@ -168,11 +168,52 @@ select cp.CodArt
 from Compuesto_Por cp 
 where cp.CodMat = 1
 
---9. Listar los materiales, código y descripción, provistos por proveedores de la ciudad de Rosario.
---10. Listar el código, descripción y precio de los artículos que se almacenan en A1.
---11. Listar la descripción de los materiales que componen el artículo B.
+--9. Listar los materiales, código y descripción, provistos por proveedores de la ciudad de la plata.
+select distinct m.descripcion, m.codMat, p.Nombre
+from Material m
+   inner join Provisto_Por pp on m.CodMat = pp.CodMat 
+   inner join Proveedor p on p.CodProv = pp.CodProv 
+where p.ciudad = 'la plata'
+
+--10. Listar el código, descripción y precio de los artículos que se almacenan en 1.
+select distinct art.CodArt, art.Descripcion, art.Precio
+from Articulo art 
+   inner join Tiene t on art.CodArt = t.CodArt
+where t.Nro = 1
+
+--11. Listar la descripción de los materiales que componen el artículo 2.
+select m.Descripcion
+from Material m
+where exists (select 1 from Compuesto_Por cp where cp.CodMat = m.CodMat and cp.CodArt = 2)
+
 --12. Listar los nombres de los proveedores que proveen los materiales al almacén que Martín Gómez tiene a su cargo.
---13. Listar códigos y descripciones de los artículos compuestos por al menos un material provisto por el proveedor López.
+select p.Nombre
+from Proveedor p
+where   p.CodProv IN (select pp.CodProv from Provisto_Por pp, Almacen a,Tiene t, Compuesto_Por cp
+                     where a.Responsable = 'Juan Perez' and a.Nro = t.Nro and t.CodArt = cp.CodArt and cp.CodMat = Pp.CodMat)
+					 order by p.Nombre 
+
+--otra solucion 
+select distinct p.Nombre
+from Proveedor p
+  inner join Provisto_Por pp  on pp.CodProv = p.CodProv
+  inner join Compuesto_Por cp on cp.CodMat = pp.CodMat
+  inner join Tiene t          on t.CodArt = cp.CodArt
+  inner join Almacen a        on a.Nro = t.Nro
+where a.Responsable = 'Juan Perez'
+order by p.Nombre 
+
+--13. Listar códigos y descripciones de los artículos compuestos por al menos un material provisto por el proveedor Perez.
+--esta mal:
+select distinct a.CodArt, a.Descripcion
+from Articulo a
+  inner join Compuesto_Por cp   on cp.CodArt = a.CodArt
+  inner join Provisto_Por pp    on cp.CodMat = pp.CodMat
+  inner join Proveedor p        on p.CodProv = pp.CodProv
+  inner join Tiene t            on t.CodArt = cp.CodArt
+  inner join Almacen alm        on alm.Nro = t.Nro
+where  p.Nombre= '%Carlitos'
+
 --14. Hallar los códigos y nombres de los proveedores que proveen al menos un material que se usa en algún artículo cuyo precio es mayor a $100.
 
 select distinct p.codProv,p.nombre 
@@ -183,8 +224,29 @@ from proveedor p
 	inner  join articulo  a        on a.codArt = cp.codArt 
 where a.precio > 100
 
---15. Listar los números de almacenes que tienen todos los artículos que incluyen el material con código 123.
+--15.1 Listar los números de almacenes que tienen todos los artículos
+
+select COUNT(*) as [cantidad total de articulos]
+from articulo
+
+select t.nro, count(t.CodArt)  as [cantidad de articulos que tiene el almacen]
+from tiene t
+group by t.nro 
+having count (t.codart) = (select count (*) from Articulo) 
+
+--15.2 Listar los números de almacenes que tienen todos los artículos que incluyen el material con código 1.
+--cantidad de articulos: 
+select count(*) as [cantidad de articulos con mat 1]
+from articulo a
+  join compuesto_por cp on a.codart = cp.codart
+  where cp.codmat = 1
+
+
+
 --16. Listar los proveedores de Capital Federal que sean únicos proveedores de algún material.
+
+
+
 --17. Listar el/los artículo/s de mayor precio.
 
 select a1.* 
@@ -215,3 +277,6 @@ where a.codart not IN(
 --23. Listar los artículos que estén compuestos con hasta 2 materiales.
 --24. Listar los artículos compuestos por todos los materiales.
 --25. Listar las ciudades donde existan proveedores que provean todos los materiales.
+
+
+
