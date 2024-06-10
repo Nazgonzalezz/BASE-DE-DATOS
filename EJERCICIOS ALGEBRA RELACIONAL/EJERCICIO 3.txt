@@ -1,0 +1,72 @@
+Almacén      (Nro, Responsable)
+Artículo     (CodArt, descripción, Precio)
+Material     (CodMat, Descripción)
+Proveedor    (CodProv, Nombre, Domicilio, Ciudad)
+Tiene        (Nro, CodArt)
+CompuestoPor (CodArt, CodMat)
+ProvistoPor  (CodMat, CodProv)
+
+Realizar las siguientes consultas en Álgebra Relacional:
+-------------------------------------------------------
+
+
+1. Listar los responsables de los almacenes.
+π responsable (almacen)
+
+2. Listar los nombres de los proveedores de la ciudad de La Plata.
+π nombre (O ciudad = 'la plata'(proveedor))
+
+3. Listar los números de artículos cuyo precio sea inferior a $10.
+π codArt (O precio < 10 (articulo))
+
+4. Listar los códigos de los materiales que provea el proveedor 10 y no los provea el proveedor 15.
+provistoPor10 <---- π codMat (O codProv = 10 (provisto))
+provistoPor15 <---- π codMat (O codProv = 15 (provisto))
+RTA <--- provistoPor10 - provistoPor15
+
+5. Listar los números de almacenes que almacenan el artículo A.
+π nro (O codArt = 'A' (tiene))
+
+6. Listar los proveedores de Pergamino que se llamen Pérez.
+O ciudad = 'pergamino' and nombre = 'perez' (proveedor)
+
+--otra forma de resolverlo: 
+O nombre = 'perez' (O ciudad = 'pergamino' (proveedor))
+
+7. Listar los almacenes que contienen los artículos A y los artículos B (ambos).
+tieneA <--- π nro (O codArt = 'A' (tiene))
+tieneB <--- π nro (O codArt = 'B' (tiene))
+RTA <--- tieneA ∩ tieneB
+
+8. Listar los artículos que cuesten más de $100 o que estén compuestos por el material M1.
+cuestanMasDe100 <--- π codArt (o precio > 100 (articulo))
+compuestoPorM1 <---- π codArt (O codMar = 'm1' (compuestoPor)) 
+RTA <--- cuestanMarDe100 U compuestoPorM1 
+
+9. Listar los materiales, código y descripción, provistos por proveedores de la ciudad de Rosario.
+π codMat, descripción (O ciudad = 'rosario' (proveedor |x| provistoPor |X| material))
+
+10. Listar el código, descripción y precio de los artículos que se almacenan en A1.
+π codArt, descripción, precio (O nro = 'A1' (tiene |X| articulo))
+
+11. Listar la descripción de los materiales que componen el artículo B.
+π descripción (O codArt = 'B' ( materiales |X| compuestoPor))
+
+12. Listar los nombres de los proveedores que proveen los materiales al almacén que Martín Gómez tiene a su cargo.
+π nombre (O responsables = 'Martín Gómez'( proveedores |X| almacen |X| provistoPor |X| CompuestoPor) )
+
+13. Listar códigos y descripciones de los artículos compuestos por al menos un material provisto por el proveedor ópez.
+
+
+14. Hallar los códigos y nombres de los proveedores que proveen al menos un material que se usa en algún artículo cuyo precio es mayor a $100.
+15. Hallar el o los códigos de los artículos de mayor precio.
+artMenoresPrecios <--- π 1 (articulo |x| articulo) 
+RTA <---- π codArt (articulo) - artMenoresPrecios
+
+16. Listar los números de almacenes que tienen todos los artículos que incluyen el material con código 123.
+
+
+
+
+
+
