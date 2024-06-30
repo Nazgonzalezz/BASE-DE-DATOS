@@ -1,0 +1,49 @@
+Dado el siguiente modelo relacional: 
+Estudiante(id_estudiante,nobre,edad,carrera)   -- PK:(id_estudiante)  --FK: ()
+Materia(id_mat,nombre)                         -- PK:(id_mat)  --FK: ()
+Final(id_estudiante,id_mat,anio,calificacion)    -- PK:(id_estudiante,id_mat)  --FK: (id_estudiante,id_mat)
+Cursa(id_estudiante,id_mat)                    -- PK:(id_estudiante,id_mat)  --FK: (id_estudiante,id_mat)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+1)Realizar la consulta en AR para obtener el nombre de los estudiantes que estan cursando al menos dos materias diferentes y que hayan obtenido una calificacion de al menos 7 en todas las materias ya finalizadas
+
+MatFinalMenorSiete <--- π (id_estudiante) (σ  (calificacion < 7) (Final) )  
+MatFinalSieteOMas   <--- π (id_estudiante) (Final)  - MatFinalMenorSiete
+Rta <--- π (2) (σ (1=6 and 1=8 and 7<>8 )  (Estudiante |x| MatFinalSieteOMas |x| Cursa |x| Cursa' ) )
+  
+
+las columnas de la tabla quedarian asi:
+id_estudiante,nobre,edad,carrera,id_mat,
+   1         ,  2  , 3  , 4     ,  5    
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+2) Realice una consulta en AR 	que permita listar el estudiante con la mejor calificacion en cada materia rendida este año de la carrera "Ingenieria en Sistemas". Listar el nombre del estudiante, el nombre de la materia y su calificacion. 
+
+Finales2024    <-- σ (anio=2024) (Final)
+PeoresNotasFinl <-- π (1,2,4) (σ (4<8 and 2=6) (Finales2024 x Finales2024') )
+MejoresNotasFinl <-- π (id_estudiante,id_mat,calificacion) (Finales2024) - PeoresNotasFinl
+Rta    <-- π (2,7,6) (σ (7 = "Ingenieria en Sistemas") ( Estudiante |x| MejoresNotasFinl |x| Materia ) )
+
+
+Asi quedarian las columnas de la tabla: 
+id_estudiante,nombre(estudiante),edad,carrera,id_mat,calificacion,nombre(materia)
+1            , 2               ,  3 ,   4   ,  5   ,   6        , 7 
+
+
+(cuando hago la junta natural se quitan las columnas repetidas)
+|X|    Junta Natural
+
+
+
+(cuando hago el producto cartesiano dejo las columnas repetidas)
+X      Producto Cartesiano
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
