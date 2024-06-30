@@ -4,7 +4,7 @@ Materia(id_mat,nombre)                         -- PK:(id_mat)  --FK: ()
 Final(id_estudiante,id_mat,anio,calificacion)    -- PK:(id_estudiante,id_mat)  --FK: (id_estudiante,id_mat)
 Cursa(id_estudiante,id_mat)                    -- PK:(id_estudiante,id_mat)  --FK: (id_estudiante,id_mat)
 
---------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1)Realizar la consulta en AR para obtener el nombre de los estudiantes que estan cursando al menos dos materias diferentes y que hayan obtenido una calificacion de al menos 7 en todas las materias ya finalizadas
 
 MatFinalMenorSiete <--- π (id_estudiante) (σ  (calificacion < 7) (Final) )  
@@ -16,7 +16,7 @@ las columnas de la tabla quedarian asi:
 id_estudiante,nobre,edad,carrera,id_mat,
    1         ,  2  , 3  , 4     ,  5    
 
--------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 2) Realice una consulta en AR 	que permita listar el estudiante con la mejor calificacion en cada materia rendida este año de la carrera "Ingenieria en Sistemas". Listar el nombre del estudiante, el nombre de la materia y su calificacion. 
 
 Finales2024    <-- σ (anio=2024) (Final)
@@ -37,7 +37,7 @@ id_estudiante,nombre(estudiante),edad,carrera,id_mat,calificacion,nombre(materia
 
 (cuando hago el producto cartesiano dejo las columnas repetidas)
 X      Producto Cartesiano
---------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
