@@ -44,4 +44,22 @@ EmplDepVents <-- π (id_empleado,nombre) (O (3 = 5 ) (Empleado |x| DepVents ) )
 MasDe2Ventas <-- π (1) (O (1=4 and 4=7 and  3<>6 ) (EmplDepVents x Venta x Venta') )
 
 Rta <--  π (id_empleado) (Empleado)  -  MasDe2Ventas
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5) Realice una consulta en AR que permita listar el empleado mas antiguo de cada departamento. Listar nombre y salario del empleado y el nombre del departamento 
+
+EmplActual <-- π (id_empleado) ( O  (4 > 8) (Empleado x Empleado'))
+EmplMasAntiguo <-- π (id_empleado) (Empleado)  - EmplActual  
+Rta <--- π (2,11,7) (Empleado |x| EmplMasAntiguo |x| Departamento |x| trabaja)
+
+
+la tabla quedaria asi: 
+id_empleado , nombre , id_departamento , fingreso, id_empleado', id_departamento', nombre',ubicacion,id_empleado'', id_departamento'', salario
+ 1          ,   2    ,  3              ,  4       ,  5         ,   6             ,   7   ,  8      ,  9          , 10               , 11
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
