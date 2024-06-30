@@ -6,7 +6,7 @@ Trabaja (id_empleado, id_departamento, salario)                  -- PK:(id_emple
 Venta (id_venta , id_empleado, monto)                            -- PK:(id_venta)  --FK: (id_empleado)
 
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1) Realice la consulta en AR que devuelva los nombres de los empleados que trabajan en el departamento "Ventas" y que hayan realizado al menos tres ventas.
   
 DepVents <-- π (id_departamento) (O (nombre = 'Ventas')  (Departamento) )
@@ -14,17 +14,17 @@ EmplDepVents <-- π (id_empleado,nombre) (O (3 = 5 ) (Empleado |x| DepVents ) )
 Rta <-- π (2) (O (1=4 and 4=7 and 7=10  3<>6 end 3<>9 9<>6 ) (EmplDepVents x Venta x Venta' x Venta''') )
 
 
-d_empleado ,nombre ,id_venta , id_empleado, monto,id_venta', id_empleado',monto'
-1          ,2       ,3       ,  4         ,  5   , 6       ,  7          ,  8   
+--asi querdarian las columnas de la tabla: 
+d_empleado ,nombre ,id_venta , id_empleado, monto,id_venta', id_empleado',monto',id_venta'', id_empleado'',monto''
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 2) Realice la consulta en AR que devuelva los nombres de los empleados que trabajan en el departamento "Ventas" y que hayan realizado al menos dos ventas.
 
 DepVents <-- π (id_departamento) (O (nombre = 'Ventas')  (Departamento) )
 EmplDepVents <-- π (id_empleado,nombre) (O (3 = 5 ) (Empleado |x| DepVents ) )
 Rta <-- π (2) (O (1=4 and 4=7 and  3<>6 ) (EmplDepVents x Venta x Venta') )
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 3) Realice la consulta en AR que devuelva los nombres de los empleados que trabajan en el departamento "Ventas" y que hayan realizado exactamente  dos ventas.
 
 DepVents <-- π (id_departamento) (O (nombre = 'Ventas')  (Departamento) )
@@ -36,7 +36,7 @@ EmplDepVents <-- π (id_empleado,nombre) (O (3 = 5 ) (Empleado |x| DepVents ) )
 MasDe2Ventas <-- π (1) (O (1=4 and 4=7 and  3<>6 ) (EmplDepVents x Venta x Venta') )
 
 Rta <-- MasDe2Ventas - MasDe3Ventas
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 4) Realice la consulta en AR que devuelva los nombres de los empleados que trabajan en el departamento "Ventas" y que hayan realizado exactamente  una venta.
 
 DepVents <-- π (id_departamento) (O (nombre = 'Ventas')  (Departamento) )
