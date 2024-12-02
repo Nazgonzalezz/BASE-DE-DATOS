@@ -1,0 +1,70 @@
+Dado el siguiente modelo relacional:
+
+Almacen (Nro, Responsable)
+Articulo (CodArt, Descripcion, Precio)
+Material (CodMat, Descripcion, PrecioCosto)
+Proveedor (CodProv, Nombre, Domicilio, Ciudad)
+Tiene (Nro, CodArt)
+CompuestoPor (CodArt, CodMat)
+ProvistoPor (CodMat, CodProv)
+
+Resolver las siguientes consultas en Álgebra Relacional:
+==================================================================================================================================
+==================================================================================================================================
+
+a) Listar los nombres de los proveedores de la ciudad de La Plata.
+π nombre (O ciudad = 'La plata' (Proveedor) )
+
+----------------------------------------------------------------------------------------------------------------------------------
+b) Listar los códigos de artículos cuyo precio sea inferior a $500.
+π CodArt (O  precio < 500 (Articulo) )
+
+----------------------------------------------------------------------------------------------------------------------------------
+c) Listar los responsables de los almacenes.
+π Responsables (almacenes)
+
+----------------------------------------------------------------------------------------------------------------------------------
+d) Listar los códigos de los materiales que provea el proveedor 10 y no los provea el proveedor 15
+Provee10   <-- π CodMat (O  CodMaterial = 10 (ProvistoPor) )
+
+Provee15   <-- π CodMat (O  CodMaterial = 15 (ProvistoPor) )
+
+RESPUESTA  <-- Provee10 - Provee15
+
+----------------------------------------------------------------------------------------------------------------------------------
+e) Listar los números de almacenes que almacenan el artículo con descripción ‘Alfajor’.
+π nro (O  descripción = ‘Alfajor’ (Tiene |x| Almacen ) )
+
+
+la tabla de la junta natural (Tiene |x| Almacen) quedaria asi: 
+___________________________
+|Nro | CodArt | Descripcion|
+|____|________|____________|
+|    |        |            |
+
+----------------------------------------------------------------------------------------------------------------------------------
+f) Listar los proveedores de Pergamino que se llamen Pérez.
+ O ciudad = 'Pergamino' and nombre = 'Perez' (Proveedor) 
+
+----------------------------------------------------------------------------------------------------------------------------------
+g) Listar los almacenes que contienen los artículos ‘Alfajor’ y ‘Conito’ (ambos).
+ArtAlfa         <-- π (O descripcion = ‘Alfajor’ (Articulo) )
+ 
+ArtConito       <-- π (O descripcion = ‘Conito’ (Articulo) )
+ 
+ConitoYAlfajor  <-- ArtAlfa  ∩  ArtConito 
+ 
+RESPUESTA       <-- π nro(ConitoYAlfajor |X| Tiene )
+
+----------------------------------------------------------------------------------------------------------------------------------
+h) Listar los artículos que cuesten más de $100 o que estén compuestos por el material con
+descripción ‘Harina’
+ArtMas100       <-- π CodArt,CodMat ( precio > 100 (Articulo |x| CompuestoPor) )
+
+MatHarina       <-- π CodArt,CodMat ( descripcion = ‘Harina’ (Material |x| CompuestoPor)) )
+
+RESPUESTA       <-- ArtMas100 U MatHarina
+
+
+
+
