@@ -36,7 +36,7 @@ e) Listar los números de almacenes que almacenan el artículo con descripción 
 π nro (O  descripción = ‘Alfajor’ (Tiene |x| Almacen ) )
 
 
-la tabla de la junta natural (Tiene |x| Almacen) quedaria asi: 
+la tabla de la junta natural (Tiene |x| Almacen) quedaria asi:  (la junta natural ELIMINA LAS COLUMNAS REPETIDAS)
 ___________________________
 |Nro | CodArt | Descripcion|
 |____|________|____________|
